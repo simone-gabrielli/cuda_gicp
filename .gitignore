@@ -1,8 +1,14 @@
 .vscode/*
 build/*
+*/build/*
+install/*
+log/*
 dist/*
 
 *.so
 *.py[cod]
 *.egg-info
+*.ply
+*.txt
+*.csv
 README.html

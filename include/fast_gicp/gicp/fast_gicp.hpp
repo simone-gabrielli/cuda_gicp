@@ -30,6 +30,8 @@ public:
   using PointCloudTargetPtr = typename PointCloudTarget::Ptr;
   using PointCloudTargetConstPtr = typename PointCloudTarget::ConstPtr;
 
+  using pcl::Registration<PointSource, PointTarget, Scalar>::nr_iterations_;
+
 #if PCL_VERSION >= PCL_VERSION_CALC(1, 10, 0)
   using Ptr = pcl::shared_ptr<FastGICP<PointSource, PointTarget>>;
   using ConstPtr = pcl::shared_ptr<const FastGICP<PointSource, PointTarget>>;
@@ -97,6 +99,7 @@ protected:
 
   std::vector<int> correspondences_;
   std::vector<float> sq_distances_;
+
 };
 }  // namespace fast_gicp
 

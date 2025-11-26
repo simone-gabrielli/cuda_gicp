@@ -114,6 +114,12 @@ if(BUILD_VGICP_CUDA)
   set(CUDA_NVCC_FLAGS "--expt-relaxed-constexpr")
   add_definitions(-DUSE_VGICP_CUDA)
 
+
+    # Path to bundled cudaKDTree headers
+    set(THIRD_PARTY_CUDAKDTREE_INCLUDE ${CMAKE_SOURCE_DIR}/thirdparty/cudaKDTree)
+    include_directories(${THIRD_PARTY_CUDAKDTREE_INCLUDE})
+
+
   cuda_add_library(fast_vgicp_cuda SHARED
     src/fast_gicp/cuda/fast_vgicp_cuda.cu
     src/fast_gicp/cuda/brute_force_knn.cu
@@ -126,22 +132,25 @@ if(BUILD_VGICP_CUDA)
     src/fast_gicp/cuda/compute_mahalanobis.cu
     src/fast_gicp/cuda/ndt_cuda.cu
     src/fast_gicp/cuda/ndt_compute_derivatives.cu
+    src/fast_gicp/cuda/cugicp_core.cu
   )
   target_include_directories(fast_vgicp_cuda PRIVATE
     include
     thirdparty/Eigen
     thirdparty/nvbio
     ${catkin_INCLUDE_DIRS}
+    ${THIRD_PARTY_CUDAKDTREE_INCLUDE}
   )
   target_link_libraries(fast_vgicp_cuda
     ${catkin_LIBRARIES}
   )
   cuda_add_cublas_to_target(fast_vgicp_cuda)
 
-  # add vgicp_cuda to libfast_gicp
+  # add vgicp_cuda and cugicp to libfast_gicp
   target_sources(fast_gicp PRIVATE
     src/fast_gicp/gicp/fast_vgicp_cuda.cpp
     src/fast_gicp/ndt/ndt_cuda.cpp
+    src/fast_gicp/gicp/fast_cugicp.cpp
   )
   target_link_libraries(fast_gicp
     fast_vgicp_cuda
