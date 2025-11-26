@@ -1,11 +1,11 @@
 
-# Note: New faster library is released
 
-We released [small_gicp](https://github.com/koide3/small_gicp) that is twice as fast as fast_gicp and with minimum dependencies and clean interfaces.
+# Fast GICP (CUDA Fork)
 
-# fast_gicp
+**This is a public fork of Fast GICP with full CUDA support for GICP registration.**
 
-This package is a collection of GICP-based fast point cloud registration algorithms. It constains a multi-threaded GICP as well as multi-thread and GPU implementations of our voxelized GICP (VGICP) algorithm. All the implemented algorithms have the PCL registration interface so that they can be used as an inplace replacement for GICP in PCL.
+This fork adds GPU-accelerated GICP (cugicp) to the original Fast GICP library, enabling fast point cloud registration on NVIDIA GPUs. All CUDA code is conditionally compiled and can be enabled via CMake options.
+
 
 - FastGICP: multi-threaded GICP algorithm (**\~40FPS**)
 - FastGICPSingleThread: GICP algorithm optimized for single-threading (**\~15FPS**)
@@ -16,13 +16,14 @@ This package is a collection of GICP-based fast point cloud registration algorit
 
 [![Build](https://github.com/SMRT-AIST/fast_gicp/actions/workflows/build.yml/badge.svg)](https://github.com/SMRT-AIST/fast_gicp/actions/workflows/build.yml) on melodic & noetic
 
+
 ## Installation
 
 ### Dependencies
 - PCL
 - Eigen
 - OpenMP
-- CUDA (optional)
+- CUDA (required for GPU features)
 - [Sophus](https://github.com/strasdat/Sophus)
 - [nvbio](https://github.com/NVlabs/nvbio)
 
